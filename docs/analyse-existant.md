@@ -55,8 +55,8 @@ Source : `docs/infos/Contraintes+techniques.pdf`.
 
 Le template ODT demande notamment :
 
-1. Présentation (objectifs, périmètre) — **§1.1 et §1.2 préremplis** à partir des specs / de l’existant  
-2. Architecture, choix techniques, API / schémas — à compléter plus tard  
+1. Présentation (objectifs, périmètre) — **§1.1 et §1.2 préremplis**  
+2. Architecture, choix techniques, API / schémas — **amorcé en Feature/2** (détail : `docs/architecture-mvp.md` + template ODT §2)  
 3. Tests, perf, revue technique — à compléter plus tard  
 4. FAQ + tâches déléguées à l’IA — à compléter plus tard  
 5. Annexes (captures, schémas, rapports) — à compléter plus tard  
