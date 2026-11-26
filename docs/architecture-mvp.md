@@ -2,8 +2,8 @@
 
 > Issue : [#3 Feature/2-definissez-architecture-logicielle-api](https://github.com/WN59/PROJET5_OCR/issues/3)  
 > Branche : `feature/2-definissez-architecture-logicielle-api`  
-> Date : 2026-11-23  
-> Sources : `docs/infos/` (specs + contraintes ORION), `docs/analyse-existant.md`  
+> Date : 2026-11-24 (aligné Feature/3 — env Docker / ORM)  
+> Sources : `docs/infos/` (specs + contraintes ORION), `docs/analyse-existant.md`, `docs/revue-pratiques.md`  
 > Note : document **évolutif** — les choix seront affinés au fil du développement et finalisés en fin de projet.
 
 ---
@@ -15,7 +15,8 @@
 | **Front** | **Angular** (+ Angular Material, déjà dans le starter) | Imposé / recommandé par ORION ; starter fourni ; Material déjà branché |
 | **Back** | **Java + Spring Boot** (+ Spring Data JPA, Spring Security) | Spring Core (IoC/DI) obligatoire ; Boot et Spring Data recommandés ; starter déjà présent |
 
-Versions de départ du MVP : celles du **starter** (Angular ~14, Spring Boot 2.7, Java 11, MySQL). Une modernisation (Angular récent / Boot 3 / Java 21) reste possible plus tard si le gain le justifie, sans changer le choix de stack.
+Versions de travail MVP : **Angular ~14** (starter), **Spring Boot 2.7.18** (dernière 2.7.x), **Java 11** (pom), **MySQL 8** (Docker), driver **`mysql-connector-j`**, Lombok **1.18.38**.  
+Une modernisation (Angular récent / Boot 3 / Jakarta / Java 21) reste possible plus tard si le gain le justifie, sans changer le choix de stack. Voir `docs/revue-pratiques.md`.
 
 ---
 
@@ -194,7 +195,7 @@ Codes d’erreur attendus : `400` validation, `401` non authentifié, `403` inte
 |----------------|------|----------|---------|---------------|
 | Angular 14 (starter) | Framework front | https://angular.io | SPA structurée, routing, formulaires | Contrainte ORION + starter fourni |
 | Angular Material | Lib UI | https://material.angular.io | Composants UI rapides / responsive | Déjà configuré dans le projet |
-| Spring Boot 2.7 | Framework back | https://spring.io/projects/spring-boot | API REST + IoC/DI | Boot recommandé ; Core obligatoire |
+| Spring Boot 2.7.18 | Framework back | https://spring.io/projects/spring-boot | API REST + IoC/DI | Boot recommandé ; dernière 2.7.x sans Jakarta |
 | Spring Data JPA | Persistance | https://spring.io/projects/spring-data-jpa | Accès MySQL via repositories | Module Spring Data demandé par ORION |
 | Spring Security + JWT | Sécurité | https://spring.io/projects/spring-security | Sécuriser l’API | Interaction front/back sécurisée (contrainte) |
 | MySQL | SGBD | — | Persistance relationnelle | Déjà prévu dans le `pom` starter |

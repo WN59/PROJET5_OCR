@@ -1,0 +1,40 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mdd-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-mdd}
+      MYSQL_USER: ${MYSQL_USER:-mdd}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-mdd_secret}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root_secret}
+    ports:
+      - "${MYSQL_PORT:-3306}:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    command: ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-proot_secret"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 20s
+
+  phpmyadmin:
+    image: phpmyadmin:5.2
+    container_name: mdd-phpmyadmin
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_USER: ${MYSQL_USER:-mdd}
+      PMA_PASSWORD: ${MYSQL_PASSWORD:-mdd_secret}
+      UPLOAD_LIMIT: 64M
+    ports:
+      - "${PHPMYADMIN_PORT:-8081}:80"
+
+volumes:
+  mysql_data:

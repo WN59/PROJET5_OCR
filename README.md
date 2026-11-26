@@ -1,25 +1,54 @@
-# P6-Full-Stack-reseau-dev
+# PROJET5_OCR — MDD (Monde de Dév)
 
-## Front
+Application full-stack : réseau social technique (Angular + Spring Boot + MySQL).
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.3.
+## Prérequis
 
-Don't forget to install your node_modules before starting (`npm install`).
+- Git, Docker / Docker Compose
+- Java 11+ (JDK), Maven 3.8+
+- Node.js 16+ / npm (compatible Angular 14)
 
-### Development server
+## Démarrage
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+```bash
+# Base de données + phpMyAdmin
+cp .env.example .env   # optionnel
+docker compose up -d
 
-### Build
+# API
+cd back && mvn spring-boot:run
+# → http://localhost:8080
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+# Front
+cd front && npm install && npm start
+# → http://localhost:4200  (proxy /api → 8080)
+```
 
-### Where to start
+| Outil | URL |
+|-------|-----|
+| Front | http://localhost:4200 |
+| API | http://localhost:8080 |
+| phpMyAdmin | http://localhost:8081 |
 
-As you may have seen if you already started the app, a simple home page containing a logo, a title and a button is available. If you take a look at its code (in the `home.component.html`) you will see that an external UI library is already configured in the project.
+Seed : utilisateurs `alice` / `bob`, mot de passe `Password1!`.
 
-This library is `@angular/material`, it's one of the most famous in the angular ecosystem. As you can see on their docs (https://material.angular.io/), it contains a lot of highly customizable components that will help you design your interfaces quickly.
+Doc détaillée : [`docs/environnement-dev.md`](docs/environnement-dev.md).
 
-Note: I recommend to use material however it's not mandatory, if you prefer you can get rid of it.
+## Structure
 
-Good luck!
+```text
+├── back/          # API Spring Boot
+├── front/         # SPA Angular
+├── docs/          # Specs, architecture, env
+└── docker-compose.yml
+```
+
+## Workflow Git
+
+- `main` — branche stable
+- `develop` — intégration
+- `feature/...` — une branche par étape
+
+## Front (starter)
+
+Généré avec Angular CLI 14.1.3. UI : Angular Material.
