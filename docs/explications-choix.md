@@ -35,7 +35,7 @@ Donc on ne « invente » pas la stack : on **choisit comment** l’utiliser pour
 
 | On a choisi | On n’a pas choisi | Pourquoi |
 |-------------|-------------------|----------|
-| **Spring Boot** | Java « brut », autre framework | ORION veut Spring (IoC / DI). Boot simplifie la config et l’API REST. Le starter est déjà un projet Boot. |
+| **Spring Boot 2.7.18** | Java « brut », autre framework, Boot 3 tout de suite | ORION veut Spring (IoC / DI). Boot simplifie la config. On reste en 2.7.x (javax) pour coller au starter ; 2.7.18 = dernière ligne 2.7. |
 | **Spring Data JPA** | JDBC à la main, Hibernate « nu » | ORION dit de préférer un **module Spring Data** pour la base. Moins de code, repositories prêts. |
 | **MySQL** | PostgreSQL, MongoDB… | Déjà prévu dans le `pom` du starter. Les données MDD sont bien **relationnelles** (users, thèmes, articles, abonnements). |
 | **Java 11 / Boot 2.7 du starter** (départ) | Passer tout de suite en Java 21 / Boot 3 | Même logique que le front : d’abord avancer, moderniser si le gain est clair. |
@@ -121,14 +121,27 @@ On préfère tout préfixer par `/api` et grouper l’auth sous `/api/auth/...` 
 
 ---
 
-## 7. Ce qu’on assume volontairement « plus tard »
+## 7. Environnement local (déjà en place)
+
+| Choix | Pourquoi oui |
+|-------|--------------|
+| **Docker Compose** (MySQL 8 + phpMyAdmin) | Même base pour tout le monde, sans installer MySQL à la main. phpMyAdmin = voir le schéma / seed facilement. |
+| **Seed JPA** (`alice` / `bob`) | Tester l’API sans tout saisir à la main. |
+| **Proxy Angular `/api`** | Front et back sur des ports différents, sans galère CORS en local. |
+
+Détails : `docs/environnement-dev.md`.
+
+---
+
+## 8. Ce qu’on assume volontairement « plus tard »
 
 Ces trucs sont **OK à compléter au fil de l’eau** (comme le dit OCR) :
 
 - diagramme UML/C4 joli en annexe  
-- éventuellement monter les versions Angular / Spring  
-- MapStruct, OpenAPI/Swagger, Docker Compose… si utiles  
+- éventuellement monter les versions Angular / Spring (Boot 3 / Jakarta)  
+- MapStruct, OpenAPI/Swagger, Flyway/Liquibase… si utiles  
 - affiner les endpoints quand on code pour de vrai  
+- maquettes Figma branchées  
 
 **Règle d’or OCR :** un choix front, un choix back — on les a (Angular / Spring Boot). On ne change pas de stack toutes les semaines.
 
@@ -140,9 +153,10 @@ Ces trucs sont **OK à compléter au fil de l’eau** (comme le dit OCR) :
 2. **Spring Boot + Data JPA + MySQL** → imposé / déjà là / adapté au métier.  
 3. **Client–serveur + couches** → simple, séparé, pédagogique.  
 4. **JWT** → adapté à une SPA, session persistante.  
-5. **Pas de microservices / event-driven** → surdimensionné pour le MVP.  
-6. **Document évolutif** → on pourra ajuster en codant, sans renier ces choix de base.
+5. **Docker + seed** → env de dev reproductible (Feature/3).  
+6. **Pas de microservices / event-driven** → surdimensionné pour le MVP.  
+7. **Document évolutif** → on pourra ajuster en codant, sans renier ces choix de base.
 
 ---
 
-*Liens utiles :* `docs/architecture-mvp.md` (détail) · `docs/infos/Template-Justification-des-choix-techniques.odt` (livrable rapport) · `docs/analyse-existant.md` (état du starter)
+*Liens utiles :* `docs/architecture-mvp.md` (détail) · `docs/environnement-dev.md` (démarrage) · `docs/revue-pratiques.md` (versions) · `docs/infos/Template-Justification-des-choix-techniques.odt` (livrable rapport) · `docs/analyse-existant.md` (état du projet)
