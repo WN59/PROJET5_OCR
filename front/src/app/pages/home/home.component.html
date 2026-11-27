@@ -1,29 +1,43 @@
 <div class="page">
-  <img src="/assets/logo_p6.png" alt="Logo MDD" class="logo" />
+  <img
+    ngSrc="/assets/logo_p6.png"
+    width="120"
+    height="120"
+    alt="Logo MDD"
+    class="logo"
+    priority
+  />
   <h1>MDD — Monde de Dév</h1>
-  <p class="subtitle">Feature/4 : première action front → API → MySQL</p>
+  <p class="subtitle">Feature/4 : chaîne front → API → MySQL (Angular 22)</p>
 
   <button
-    mat-raised-button
-    color="primary"
+    matButton="filled"
+    type="button"
     (click)="start()"
-    [disabled]="loading"
+    [disabled]="loading()"
   >
-    {{ loading ? 'Chargement…' : 'Charger les thèmes' }}
+    {{ loading() ? 'Chargement…' : 'Charger les thèmes' }}
   </button>
 
-  <p class="error" *ngIf="error">{{ error }}</p>
+  @if (error(); as errMsg) {
+    <p class="error" role="alert">{{ errMsg }}</p>
+  }
 
-  <section class="topics" *ngIf="loaded && !error">
-    <h2>Thèmes ({{ topics.length }})</h2>
-    <ul *ngIf="topics.length; else empty">
-      <li *ngFor="let topic of topics">
-        <strong>{{ topic.name }}</strong>
-        <span>{{ topic.description }}</span>
-      </li>
-    </ul>
-    <ng-template #empty>
-      <p>Aucun thème en base.</p>
-    </ng-template>
-  </section>
+  @if (loaded() && !error()) {
+    <section class="topics">
+      <h2>Thèmes ({{ topics().length }})</h2>
+      @if (topics().length) {
+        <ul>
+          @for (topic of topics(); track topic.id) {
+            <li>
+              <strong>{{ topic.name }}</strong>
+              <span>{{ topic.description }}</span>
+            </li>
+          }
+        </ul>
+      } @else {
+        <p>Aucun thème en base.</p>
+      }
+    </section>
+  }
 </div>

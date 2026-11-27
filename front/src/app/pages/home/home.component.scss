@@ -9,18 +9,17 @@
 }
 
 .logo {
-  max-width: 120px;
   margin-bottom: 0.5rem;
 }
 
 .subtitle {
-  color: #555;
+  color: color-mix(in srgb, var(--mat-sys-on-surface) 65%, transparent);
   margin: 0 0 1.5rem;
   max-width: 32rem;
 }
 
 .error {
-  color: #b00020;
+  color: var(--mat-sys-error, #b00020);
   margin-top: 1rem;
   max-width: 28rem;
 }
@@ -48,9 +47,9 @@
   gap: 0.25rem;
   padding: 0.85rem 1rem;
   margin-bottom: 0.5rem;
-  border: 1px solid #e0e0e0;
-  border-radius: 4px;
-  background: #fafafa;
+  border: 1px solid color-mix(in srgb, var(--mat-sys-outline) 40%, transparent);
+  border-radius: 8px;
+  background: var(--mat-sys-surface-container-low, #fafafa);
 }
 
 .topics li strong {
@@ -58,6 +57,6 @@
 }
 
 .topics li span {
-  color: #555;
+  color: color-mix(in srgb, var(--mat-sys-on-surface) 70%, transparent);
   font-size: 0.95rem;
 }

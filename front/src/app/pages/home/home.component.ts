@@ -1,43 +1,53 @@
-import { Component } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatButtonModule } from '@angular/material/button';
 import { Topic } from '../../core/models/topic.model';
 import { TopicService } from '../../core/services/topic.service';
 
 /**
- * Page d’accueil — Feature/4 : bouton qui charge les thèmes via l’API.
+ * Page d’accueil — charge les thèmes via l’API (Feature/4).
+ * Patterns Angular 22 : standalone (défaut), inject(), signals, control flow.
  */
 @Component({
   selector: 'app-home',
+  imports: [MatButtonModule, NgOptimizedImage],
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  styleUrl: './home.component.scss',
 })
 export class HomeComponent {
-  topics: Topic[] = [];
-  loading = false;
-  error: string | null = null;
-  loaded = false;
+  private readonly topicService = inject(TopicService);
+  private readonly destroyRef = inject(DestroyRef);
 
-  constructor(private readonly topicService: TopicService) {}
+  readonly topics = signal<Topic[]>([]);
+  readonly loading = signal(false);
+  readonly error = signal<string | null>(null);
+  readonly loaded = signal(false);
 
-  /**
-   * Déclenche `GET /api/topics` et met à jour l’UI (liste / erreur).
-   * Affiche le `message` JSON du back s’il est présent.
-   */
+  /** Déclenche GET /api/topics et met à jour l’état signal. */
   start(): void {
-    this.loading = true;
-    this.error = null;
-    this.topicService.list().subscribe({
-      next: (topics) => {
-        this.topics = topics;
-        this.loaded = true;
-        this.loading = false;
-      },
-      error: (err) => {
-        const apiMessage = err?.error?.message as string | undefined;
-        this.error =
-          apiMessage ||
-          'Impossible de charger les thèmes. Vérifie que Docker (MySQL) et le back (:8080) tournent.';
-        this.loading = false;
-      },
-    });
+    this.loading.set(true);
+    this.error.set(null);
+
+    this.topicService
+      .list()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (topics) => {
+          this.topics.set(topics);
+          this.loaded.set(true);
+          this.loading.set(false);
+        },
+        error: (err: HttpErrorResponse) => {
+          const apiMessage =
+            typeof err.error?.message === 'string' ? err.error.message : undefined;
+          this.error.set(
+            apiMessage ??
+              'Impossible de charger les thèmes. Vérifie que Docker (MySQL) et le back (:8080) tournent.',
+          );
+          this.loading.set(false);
+        },
+      });
   }
 }

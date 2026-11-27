@@ -1,6 +1,11 @@
 # PROJET5_OCR — MDD (Monde de Dév)
 
-Réseau social technique : **Angular 14** + **Spring Boot 2.7.18** + **MySQL 8**.
+Réseau social technique : **Angular 22** + **Spring Boot 2.7.18** + **MySQL 8**.
+
+## Prérequis
+
+- Node.js **≥ 24.15** (ou ≥ 22.22.3) — requis par Angular CLI 22  
+- Docker / Docker Compose, Java 11+, Maven 3.8+
 
 ## Démarrage
 
@@ -28,8 +33,8 @@ Ordre : **Docker (MySQL) avant le back**.
 | [`docs/Spécifications+fonctionnelles.pdf`](docs/Spécifications+fonctionnelles.pdf) | Specs métier |
 | [`docs/Contraintes+techniques.pdf`](docs/Contraintes+techniques.pdf) | Contraintes stack |
 
-Notes de travail / journal de features : dossier local `local/` (hors Git).
+Notes de travail : `local/` (hors Git).
 
 ## Git
 
-`main` (stable) · `develop` (intégration) · `feature/...` (une branche par étape)
+`main` · `develop` · `feature/...`
