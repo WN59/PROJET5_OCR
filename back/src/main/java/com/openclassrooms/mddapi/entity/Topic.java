@@ -13,6 +13,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Thème informatique auquel un utilisateur peut s’abonner (table {@code topics}).
+ */
 @Entity
 @Table(name = "topics")
 @Getter

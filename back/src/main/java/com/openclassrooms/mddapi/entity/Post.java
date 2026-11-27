@@ -19,6 +19,9 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import java.time.Instant;
 
+/**
+ * Article publié sur un thème (table {@code posts}).
+ */
 @Entity
 @Table(name = "posts")
 @Getter

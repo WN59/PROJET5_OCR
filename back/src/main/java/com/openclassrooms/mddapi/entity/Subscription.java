@@ -19,6 +19,10 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import java.time.Instant;
 
+/**
+ * Abonnement d’un utilisateur à un thème (table {@code subscriptions}).
+ * Contrainte unique {@code (user_id, topic_id)} : pas de double abonnement.
+ */
 @Entity
 @Table(
 		name = "subscriptions",

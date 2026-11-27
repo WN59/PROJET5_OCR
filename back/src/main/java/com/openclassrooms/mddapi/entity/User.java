@@ -15,6 +15,10 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import java.time.Instant;
 
+/**
+ * Compte utilisateur MDD (table {@code users}).
+ * Le mot de passe est stocké hashé ({@code passwordHash}), jamais en clair.
+ */
 @Entity
 @Table(name = "users")
 @Getter

@@ -19,6 +19,9 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import java.time.Instant;
 
+/**
+ * Commentaire rattaché à un article (table {@code comments}).
+ */
 @Entity
 @Table(name = "comments")
 @Getter

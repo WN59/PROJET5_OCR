@@ -1,7 +1,63 @@
-.center {
-  height: 100vh;
+.page {
+  min-height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem 3rem;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.logo {
+  max-width: 120px;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  color: #555;
+  margin: 0 0 1.5rem;
+  max-width: 32rem;
+}
+
+.error {
+  color: #b00020;
+  margin-top: 1rem;
+  max-width: 28rem;
+}
+
+.topics {
+  margin-top: 2rem;
+  width: min(32rem, 100%);
+  text-align: left;
+}
+
+.topics h2 {
+  margin-bottom: 0.75rem;
+  text-align: center;
+}
+
+.topics ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.topics li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.85rem 1rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  background: #fafafa;
+}
+
+.topics li strong {
+  font-size: 1.05rem;
+}
+
+.topics li span {
+  color: #555;
+  font-size: 0.95rem;
 }
