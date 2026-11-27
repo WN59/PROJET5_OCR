@@ -1,11 +1,11 @@
 # PROJET5_OCR — MDD (Monde de Dév)
 
-Réseau social technique : **Angular 22** + **Spring Boot 2.7.18** + **MySQL 8**.
+Réseau social technique : **Angular 22** + **Spring Boot 4.2** + **MySQL 8.4**.
 
 ## Prérequis
 
 - Node.js **≥ 24.15** (ou ≥ 22.22.3) — requis par Angular CLI 22  
-- Docker / Docker Compose, Java 11+, Maven 3.8+
+- Docker / Docker Compose, **Java 21+**, Maven 3.8+
 
 ## Démarrage
 
