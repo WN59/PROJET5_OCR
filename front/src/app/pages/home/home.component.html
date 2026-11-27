@@ -1,5 +1,43 @@
-<div class="center">
-  <img src="/assets/logo_p6.png" alt="logo" />
-  <h1>Welcome to MDD</h1>
-  <button mat-raised-button color="primary" (click)="start()">Commencer</button>
+<div class="page">
+  <img
+    ngSrc="/assets/logo_p6.png"
+    width="120"
+    height="120"
+    alt="Logo MDD"
+    class="logo"
+    priority
+  />
+  <h1>MDD — Monde de Dév</h1>
+  <p class="subtitle">Feature/4 : chaîne front → API → MySQL (Angular 22)</p>
+
+  <button
+    matButton="filled"
+    type="button"
+    (click)="start()"
+    [disabled]="loading()"
+  >
+    {{ loading() ? 'Chargement…' : 'Charger les thèmes' }}
+  </button>
+
+  @if (error(); as errMsg) {
+    <p class="error" role="alert">{{ errMsg }}</p>
+  }
+
+  @if (loaded() && !error()) {
+    <section class="topics">
+      <h2>Thèmes ({{ topics().length }})</h2>
+      @if (topics().length) {
+        <ul>
+          @for (topic of topics(); track topic.id) {
+            <li>
+              <strong>{{ topic.name }}</strong>
+              <span>{{ topic.description }}</span>
+            </li>
+          }
+        </ul>
+      } @else {
+        <p>Aucun thème en base.</p>
+      }
+    </section>
+  }
 </div>

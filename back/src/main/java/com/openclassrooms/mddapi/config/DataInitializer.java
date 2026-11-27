@@ -18,6 +18,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+/**
+ * Initialise des données de démo au premier démarrage (base vide).
+ * <p>
+ * Crée users ({@code alice}/{@code bob}), thèmes, abonnements, posts et commentaires.
+ * Idempotent : si des users existent déjà, le seed est ignoré.
+ * </p>
+ */
 @Configuration
 public class DataInitializer {
 
@@ -26,11 +33,18 @@ public class DataInitializer {
 	/** Mot de passe de démo pour tous les users seed : Password1! */
 	public static final String DEMO_PASSWORD = "Password1!";
 
+	/**
+	 * Encodeur BCrypt utilisé pour hasher le mot de passe de démo
+	 * (et plus tard les inscriptions).
+	 */
 	@Bean
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 
+	/**
+	 * Exécuté une fois au démarrage de Spring : peuplement initial MySQL.
+	 */
 	@Bean
 	CommandLineRunner seedDatabase(
 			UserRepository userRepository,
